@@ -3,9 +3,9 @@ import { useState } from "react"
 
 export const App = () => {
 
-  const urlBase = 'https://api.openweathermap.org/data/3.0/weather'
-  const API_KEY = '892124d384be1528bb15466e8aec5c5c'
-
+  const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
+  const REACT_APP_KEY = '32729af0e79d5b013671ddfe0fecd9c8'
+  const diferenciaTemperatur = 273.15
 
   const [ciudad, setCiudad] = useState('')
   const [dataClima, setdataClima] = useState(null)
@@ -23,7 +23,7 @@ export const App = () => {
 
   const fetchClima = async () => {
     try {
-      const response = await fetch(`${urlBase}?=${ciudad}&appid=${API_KEY}`)
+      const response = await fetch(`${urlBase}?q=${ciudad}&appid=${REACT_APP_KEY}&lang=es`)
       const data = await response.json()
       setdataClima(data)
     }catch{
@@ -35,7 +35,6 @@ export const App = () => {
     <div className='container'>
 
       <h1>Aplicacion del Clima</h1>
-
       <form onSubmit={handleSubmit}>
         <input type="text" 
         value={ciudad}
@@ -43,7 +42,16 @@ export const App = () => {
         />
         <button type='submit'>Buscar</button>
       </form>
-
+      {
+        dataClima && (
+          <div>
+            <h2>{dataClima.name} </h2>
+            <p>Temperatura: {parseInt(dataClima?.main?.temp - diferenciaTemperatur )}°C </p>
+            <p>Condicion del Clima: {dataClima.weather[0].description} </p>
+            <img src={`https://openweathermap.org/img/wn/${dataClima.weather[0].icon}@2x.png`}/>
+          </div>
+        )
+      }
     </div>
   )
   }
