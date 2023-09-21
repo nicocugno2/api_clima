@@ -4,7 +4,7 @@ import { useState } from "react"
 export const App = () => {
 
   const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
-  const REACT_APP_KEY = '32729af0e79d5b013671ddfe0fecd9c8'
+  const REACT_APP_KEY = 'agregar apy key'
   const diferenciaTemperatur = 273.15
 
   const [ciudad, setCiudad] = useState('')
